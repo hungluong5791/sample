@@ -12,12 +12,12 @@ pipeline {
     }
     
     stages {
-        stage('Checkout') {
-            steps {
-                git url: "$PROJECT_SCM_URL",
-                    credentialsId: "$PROJECT_SCM_CREDENTIALS"
-            }
-        }
+        // stage('Checkout') {
+        //     steps {
+        //         git url: "$PROJECT_SCM_URL",
+        //             credentialsId: "$PROJECT_SCM_CREDENTIALS"
+        //     }
+        // }
         
         stage('Build') {
             steps {
