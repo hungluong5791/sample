@@ -28,9 +28,10 @@ pipeline {
         
         stage('SonarQube Branch Analysis') {
             when {
-                beforeAgent
-                branch
+                beforeAgent true
+                branch()
             }
+
             steps {
                 sh "mvn sonar:sonar \
                     -Dsonar.projectKey=lonelymoon57_sample \
@@ -43,8 +44,8 @@ pipeline {
         
         stage('SonarQube PR Analysis') {
             when {
-                beforeAgent
-                changeRequest
+                beforeAgent true
+                changeRequest()
             }
 
             steps {
