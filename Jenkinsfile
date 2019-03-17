@@ -21,18 +21,41 @@ pipeline {
         
         stage('Build') {
             steps {
-                sh "env"
+                sh "env | sort"
                 sh "mvn clean verify"
             }
         }
         
-        stage('SonarQube Analysis') {
+        stage('SonarQube Branch Analysis') {
+            when {
+                beforeAgent
+                branch
+            }
             steps {
                 sh "mvn sonar:sonar \
                     -Dsonar.projectKey=lonelymoon57_sample \
                     -Dsonar.organization=lonelymoon57-github \
                     -Dsonar.host.url=https://sonarcloud.io \
-                    -Dsonar.login=9310f120732a6575d2bdd363b0e88cc77001a216"
+                    -Dsonar.login=9310f120732a6575d2bdd363b0e88cc77001a216 \
+                    -Dsonar.branch.name=${GIT_BRANCH}"
+            }
+        }
+        
+        stage('SonarQube PR Analysis') {
+            when {
+                beforeAgent
+                changeRequest
+            }
+
+            steps {
+                sh "mvn sonar:sonar \
+                    -Dsonar.projectKey=lonelymoon57_sample \
+                    -Dsonar.organization=lonelymoon57-github \
+                    -Dsonar.host.url=https://sonarcloud.io \
+                    -Dsonar.login=9310f120732a6575d2bdd363b0e88cc77001a216 \
+                    -Dsonar.pullrequest.branch=${CHANGE_BRANCH} \
+                    -Dsonar.pullrequest.key=${CHANGE_ID} \
+                    -Dsonar.pullrequest.base=${CHANGE_TARGET}"
             }
         }
     }
