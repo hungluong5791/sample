@@ -27,7 +27,11 @@ pipeline {
         
         stage('SonarQube Analysis') {
             steps {
-                sh "mvn sonar:sonar -Dsonar.host.url=http://host.docker.internal:9000"
+                sh "mvn sonar:sonar \
+                    -Dsonar.projectKey=lonelymoon57_sample \
+                    -Dsonar.organization=lonelymoon57-github \
+                    -Dsonar.host.url=https://sonarcloud.io \
+                    -Dsonar.login=9310f120732a6575d2bdd363b0e88cc77001a216"
             }
         }
     }
