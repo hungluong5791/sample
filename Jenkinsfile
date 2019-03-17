@@ -21,6 +21,7 @@ pipeline {
         
         stage('Build') {
             steps {
+                sh "env"
                 sh "mvn clean verify"
             }
         }
