@@ -29,7 +29,10 @@ pipeline {
         stage('SonarQube Branch Analysis') {
             when {
                 beforeAgent true
-                branch()
+                anyOf {
+                    branch 'master'
+                    branch 'feature/**'
+                }
             }
 
             steps {
