@@ -38,6 +38,13 @@ public class Hello {
         for (short i = 0; i < times; i++) {
             printer.println(HELLO);
         }
+
+        int x = 1;
+        int y = 0;
+        if (System.currentTimeMillis() % 2 == 0) {
+            y = 1;
+        }
+        int z = x / y;
     }
 
 }
